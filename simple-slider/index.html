@@ -1,0 +1,91 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>slider</title>
+    <style type="text/css">
+        /*轮播图*/
+        .zdh-containner{
+            width: 6.5rem;
+            height: 3.5rem;
+            overflow: hidden;
+            margin: auto;
+            position: relative;
+        }
+        .zdh-containner .control-btn{
+            position: absolute;
+            top: 50%;
+            z-index: 101;
+            display: inline-block;
+            transform: translateY(-50%);
+            -webkit-transform: translateY(-50%);
+            -moz-transform: translateY(-50%);
+        }
+        .zdh-containner .pre-btn{
+            left: 0;
+            padding-left: .1rem;
+        }
+        .zdh-containner .next-btn{
+            right: 0;
+            padding-right: .1rem;
+        }
+        .zdh-containner .zdh-wrapper{
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        .zdh-wrapper .zdh-slide{
+            height: 100%;
+            float: left;
+            position: relative;
+        }
+        .zdh-wrapper .zdh-slide > img{
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: auto;
+            max-width: 86%;
+            max-height: 100%;   
+        }
+        .control-icon{
+            background: url(http://hstatic.hirede.com/zdh/mobile/image/direction.png)  no-repeat;
+            background-size: 24px 28px;
+            display: inline-block;
+        }
+        .control-icon-r{
+            height: 28px;
+            width: 12px;
+            background-position: 0 0;
+        }
+        .control-icon-l{
+            height: 28px;
+            width: 12px;
+            background-position: -12px 0;
+        }        
+    </style>
+    <script>
+        var deviceWidth = document.documentElement.clientWidth;
+        document.documentElement.style.fontSize = deviceWidth / 7.5 + 'px';     
+    </script>        
+</head>
+<body>
+    <div class="zdh-containner">
+        <div class="zdh-wrapper">
+            <div class="zdh-slide"><img src="./img/1.jpg"></div>
+            <div class="zdh-slide"><img src="./img/2.jpg"></div>
+            <div class="zdh-slide"><img src="./img/3.jpg"></div>
+            <div class="zdh-slide"><img src="./img/4.jpg"></div>
+        </div>                 
+    </div>    
+</body>
+<script src="zepto-1.0.min.js"></script>
+<script src="zdh-slide.js"></script>
+<script type="text/javascript">
+    $(".zdh-containner").slider({
+        wrapperClass: 'zdh-wrapper',
+        slideClass: 'zdh-slide'       
+    });
+</script>
+</html>
