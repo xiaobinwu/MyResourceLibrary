@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>sticky</title>
+	<meta charset="utf-8">
+	<style type="text/css">
+		*{
+			padding: 0;
+			margin: 0;
+		}
+		.container{
+			padding-top: 80px;
+		}
+		.top-nav{
+			position: fixed;
+			top: 0;
+			left: 0;
+			right: 0;
+			height: 40px;
+			background-color: #CCCCFF;
+			text-align: center;
+			color: #fff;
+			line-height: 40px;
+		}
+		.top-nav1{
+			height: 40px;
+			background-color: #FF6666;
+			position: fixed;
+			top: 40px;
+			left: 0;
+			right: 0;
+			text-align: center;
+			color: #fff;
+			line-height: 40px;
+		}
+		.banner{
+			color: #fff;
+			font-size: 20px;
+			height: 200px;
+			background-color: #FF6699;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+		.act-nav{
+			color: #fff;
+			background: #0099FF;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			height: 50px;
+		}
+		.act-nav-item{
+			cursor: pointer;
+			text-align: center;
+			flex: 1;
+		}
+		.act-nav-item.active{
+			color: #FFFF33;
+		}
+		.section{
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			color: #fff;
+			font-size: 20px;
+		}
+		#section0{
+			background-color: #996600;
+			height: 500px;
+		}
+		#section1{
+			background-color: #00CC66;
+			height: 400px;
+		}	
+		#section2{
+			background-color: #00CCCC;
+			height: 800px;
+		}	
+		#section3{
+			background-color: #003333;
+			height: 1000px;
+		}
+		.nav-fixed{
+			position: fixed;
+			top: 0;
+			left: 0;
+			right: 0;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<div class="top-nav">topnav, I am fixed</div>
+		<div class="top-nav1">topnav1, I am fixed</div>
+		<div class="banner">banner</div>
+		<div class="act-nav" id="act-nav">
+			<div class="act-nav-item" id="act-nav-item0">sticky0</div>
+			<div class="act-nav-item" id="act-nav-item1">sticky1</div>
+			<div class="act-nav-item" id="act-nav-item2">sticky2</div>
+			<div class="act-nav-item" id="act-nav-item3">sticky3</div>
+		</div>
+		<div class="section" id="section0">section0</div>
+		<div class="section" id="section1">section1</div>
+		<div class="section" id="section2">section2</div>
+		<div class="section" id="section3">section3</div>
+	</div>
+<script type="text/javascript" src="velocity.min.js"></script>
+<script type="text/javascript" src="Sticky.js"></script>
+<script type="text/javascript">
+	Sticky.init({
+		stickyDom: document.querySelector('.top-nav1')
+	});
+</script>	
+</body>
+</html>

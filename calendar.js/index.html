@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>日历</title>
+</head>
+<body>
+<table cellpadding="0" cellspacing="0" id="1">
+    <tr>
+        <td>
+            <style>
+            body,
+            td,
+            .p1,
+            .p2,
+            .i {
+                font-family: arial
+            }
+            
+            body {
+                margin: 6px 0 0 0;
+                background-color: #fff;
+                color: #000;
+            }
+            
+            table {
+                border: 0
+            }
+            
+            #cal {
+                width: 434px;
+                font-size: 12px;
+                margin: 8px 0 0 15px
+            }
+            
+            #cal #top {
+                height: 40px;
+                line-height: 40px;
+                background: #429e6c;
+                border: 1px solid #429e6c;
+                color: #fff;
+                padding: 0 10px;
+                clear: both;
+            }
+            
+            #cal #top select {
+                font-size: 12px
+            }
+            
+            #cal #top input {
+                padding: 0
+            }
+            
+            #cal ul#wk {
+                margin: 0;
+                padding: 0;
+                height: 35px;
+                color: #888;
+                font-size: 14px;
+                border-left: 1px solid #429e6c;
+                border-right: 1px solid #429e6c;
+            }
+            
+            #cal ul#wk li {
+                float: left;
+                width: 60px;
+                text-align: center;
+                line-height: 25px;
+                list-style: none
+            }
+            
+            #cal ul#wk li b {
+                font-weight: normal;
+                color: #429e6c;
+            }
+            
+            #cal #cm {
+                clear: left;
+                position: relative;
+                border-left: 1px solid #429e6c;
+                border-right: 1px solid #429e6c;
+            }
+            
+            #cal #cm .cell {
+                position: absolute;
+                width: 42px;
+                height: 36px;
+                text-align: center;
+                margin: 0 0 0 9px;
+                cursor: pointer;
+            }
+            
+            #cal #cm .cell .so {
+                font: 16px arial;
+            }
+            
+            #cal #bm {
+                text-align: right;
+                height: 30px;
+                line-height: 30px;
+                padding: 0 13px 0 0;
+                border: 1px solid #429e6c;
+                border-top: 1px dashed #eee;
+                clear: both;
+                padding: 0 10px;
+                font-size: 14px;
+            }
+            
+            #cal #bm .heavenly-branch {
+                color: #429e6c;
+                float: left;
+            }
+            #cal #fd {
+                display: none;
+                position: absolute;
+                border: 1px solid #dddddf;
+                background: #fff;
+                color: #333;
+                padding: 10px;
+                line-height: 21px;
+                width: 150px;
+                border-radius: 10px;
+            }
+            #cal #fd:before{
+                content: '';
+                position: absolute;
+                left: -8px;
+                width: 0;
+                height: 0;
+                border-top: 8px solid transparent;
+                border-right: 8px solid #dddddf;
+                border-bottom: 8px solid transparent;
+            }
+            #cal #fd:after{
+                content: '';
+                position: absolute;
+                left: -6px;
+                top: 10px;
+                width: 0;
+                height: 0;
+                border-top: 8px solid transparent;
+                border-right: 8px solid #fff;
+                border-bottom: 8px solid transparent;
+            }
+            #cal #fd b {
+                font-weight: normal;
+                color: #429e6c;
+            }
+            #cal .step {
+                float: right;
+                font-size: 16px;
+            }
+            #cal .step span{
+                cursor: pointer;
+            }
+            #cal .step #prev{
+                margin-right: 10px;
+            }
+            #cal .select{
+                float: left;
+            }
+            #cal .select select{
+                -webkit-appearance: none;
+                padding: 5px 20px;
+            }
+            #cal #now-date{
+                float: right;
+                padding: 0px 10px;
+                background-color: #429e6c;
+                color: #fff;
+                font-size: 12px;
+                height: 20px;
+                line-height: 20px;
+                margin-top: 6px;
+                text-decoration: none;
+            }
+            </style>
+            <!--[if IE]>  
+                <style>  
+                    #cal #top{padding-top:4px} #cal #top input{width:65px} #cal #fd{width:170px}  
+                </style>  
+            <![endif]-->
+            <div id="cal">
+                <div id="top">
+                    <div class="select">
+                        <select id="year-select"></select>&nbsp;年
+                        <select id="month-select"></select>&nbsp;月
+                    </div>
+                    <div class="step">
+                        <span id="prev"><</span>
+                        <span id="next">></span>                               
+                    </div>
+                </div>
+                <ul id="wk">
+                    <li>一</li>
+                    <li>二</li>
+                    <li>三</li>
+                    <li>四</li>
+                    <li>五</li>
+                    <li><b>六</b></li>
+                    <li><b>日</b></li>
+                </ul>
+                <div id="cm"></div>
+                <div id="bm">
+                    <div class="heavenly-branch">
+                        <span id="heavenly"></span>年 &nbsp;
+                        ［<span id="branch"></span>］
+                    </div>
+                    <a href="javascript:;;" id="now-date">回到今天</a>
+                </div>
+            </div>
+        </td>
+    </tr>
+</table>
+<script type="text/javascript" src="calendar.min.js"></script>
+<script type="text/javascript">
+calendar.init({
+    cellClickCallback: function(cell, datedata){
+        console.log(datedata);
+        alert('你点击的是'+ datedata.solarYear + '年' + datedata.solarMonth + '月' + datedata.solarDate + '日');        
+    }
+});
+</script>
+</body>
+</html>
+
+
+
