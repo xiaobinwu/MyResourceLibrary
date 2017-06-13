@@ -1,4 +1,4 @@
-| 项目        | 价格   |
+| 项目        | 描述   |
 | :--------   | :-----  |
 | calendar.js     | 基于百度日历的日历js插件 |
 | lazyload        |   懒加载   |
@@ -6,3 +6,4 @@
 | scrollbar        |    自定义滚动条    |
 | Sticky.js        |    吸附元素滚动插件    |
 | simple-slider        |    简单的轮播插件（适用于jquery与zepto）    |
+| textScroll       |    文字无缝向上滚动    |

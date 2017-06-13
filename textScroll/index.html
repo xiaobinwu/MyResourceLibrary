@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>文字向上滚动</title>
+    <style type="text/css">
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        li{
+            height: 20px;
+            line-height: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div id="demo" style="overflow:hidden;height:100px;width:210px; border:1px solid #666;">
+    <div id="demo1">
+        <ul>
+            <li>十指春风</li>
+            <li>绚烂人生 永久相爱</li>
+            <li>东方的圣者</li>
+            <li>冬夜思绪</li>
+            <li>梦里与谁醉</li>
+            <li>感悟</li>
+            <li>十指春风</li>
+            <li>绚烂人生 永久相爱</li>
+            <li>东方的圣者</li>
+            <li>冬夜思绪</li>
+            <li>感悟</li>
+        </ul>
+    </div>
+    <div id="demo2"></div>
+</div>
+
+</body>
+
+<script type="text/javascript">
+    var speed = 40;//数值越大，速度越慢
+    var demo2 = document.getElementById("demo2");
+    var demo1 = document.getElementById("demo1");
+    var demo = document.getElementById("demo");
+    demo2.innerHTML = demo1.innerHTML;
+    demo.scrollTop = demo.scrollHeight;
+    function MarqueeUp(){
+        if(demo2.offsetTop-demo.scrollTop <= 0)
+            demo.scrollTop -= demo2.offsetHeight;
+        else{
+            demo.scrollTop++;
+        }
+    }
+    var MyMar = setInterval(MarqueeUp,speed);
+    demo.onmouseover = function() { clearInterval(MyMar); }
+    demo.onmouseout = function() { MyMar=setInterval(MarqueeUp,speed); }
+</script>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
