@@ -1,0 +1,102 @@
+<center>
+    <table>
+        <tr align="center">
+            <td colspan="3">
+                选择
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <select id="fb_list" name="fb_list" multiple="multiple" size="8" style="width: 300px; height:200px;">
+                </select>
+            </td>
+            <td>
+                <input type="button" id="selectup" name="selectup" value="上移∧" />
+                <br />
+                <input type="button" id="add" name="add" value="添加>>" />
+                <br />
+                <input type="button" id="delete" name="delete" value="<<移除" />
+                <br />
+                <input type="button" id="selectdown" name="selectdown" value="下移∨" />
+            </td>
+            <td>
+                <select id="select_list" name="select_list" multiple="multiple" size="8" style="width: 300px; height:200px;">
+                </select>
+            </td>
+        </tr>
+    </table>
+</center>
+<script src="https://cdn.bootcss.com/jquery/1.10.1/jquery.js"></script>
+<script type="text/javascript">
+$(function() {
+
+    var array = [
+        { id: 1, name: 'xiaobin', tel: '1222' },
+        { id: 2, name: 'xioaming', tel: '133123' },
+        { id: 3, name: 'dasda', tel: '1331923' },
+        { id: 4, name: 'xiotgdfgaming', tel: '1383123' },
+        { id: 5, name: 'ioamccccxing', tel: '1337123' },
+        { id: 6, name: 'iioaming', tel: '1331236' }
+    ];
+    var obj = document.getElementById("fb_list");
+    var value = "";
+    for (var i = 0; i < array.length; i++) {
+        value = array[i].id + "/" + array[i].name + "/" + array[i].tel;
+        obj.options[i] = new Option(value, value);
+        //obj.add(newOption);
+    }
+})
+
+//向右移动
+$(function() {　　
+    $("#add").click(function() {
+        if ($("#fb_list option:selected").length > 0){　
+            $("#fb_list option:selected").each(function() {　　　　　　　　　　　　　　
+                $("#select_list").append("<option value='" + $(this).val() + "'>" + $(this).text() + "</option");　　　　　　　　　　　　　　
+                $(this).remove();　　　　　　　　　　
+            })
+        }else{
+            alert("请选择要添加的分包！");　
+        }　　　
+    });
+})
+//向左移动
+$(function() {　　　　　　
+    $("#delete").click(function() {　　　　　　　　　　　
+        if ($("#select_list option:selected").length > 0){　　　　　　　　　　　　　　　
+            $("#select_list option:selected").each(function() {　　　　　　　　　　　　　　　　　　　　　
+                $("#fb_list").append("<option value='" + $(this).val() + "'>" + $(this).text() + "</option");　　　　　　　　　　　　　　　　　　　　　
+                $(this).remove();　　　　　　　　　　　　　　　　
+            })　　　　　　　　　　　
+        }else{
+            alert("请选择要删除的分包！");　　　　　　　　　　　
+        }
+    });
+});
+
+//向上移动
+$(function() {
+    $("#selectup").click(function() {
+        if ($("select[name='fb_list'] option:selected").length > 0) {
+            $("select[name='fb_list'] option:selected").each(function() {
+                $(this).prev().before($(this));
+            })
+        } else {
+            alert("请选择要移动的数据!");
+        }
+    })
+})
+//向下移动
+$(function() {
+    $("#selectdown").click(function() {
+        if ($("select[name='fb_list'] option:selected").length > 0) {
+            $("select[name='fb_list'] option:selected").each(function() {
+                //$(this).next().after($(this));
+                $(this).insertAfter($(this).next());
+            })
+        } else {
+            alert("请选择要移动的数据!");
+        }
+    })
+})
+</script>

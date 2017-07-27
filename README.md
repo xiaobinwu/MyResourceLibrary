@@ -7,3 +7,4 @@
 | Sticky.js        |    吸附元素滚动插件    |
 | simple-slider        |    简单的轮播插件（适用于jquery与zepto）    |
 | textScroll       |    文字无缝向上滚动    |
+| selectMulti       |    Jquery实现select multiple左右添加和删除功能的简单实例    |
