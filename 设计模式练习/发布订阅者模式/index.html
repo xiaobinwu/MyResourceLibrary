@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <title>表格筛选功能</title>
+    <style>
+        *{margin: 0; padding: 0;}
+        td,th{border: 1px solid #ccc; font-size: 20px;}
+        table{border-collapse: collapse; width:80%; margin:150px auto 0;}
+        td,th{padding:20px 20px; width:30%; text-align: center;}
+        th{font-weight: bold; background-color: #eee;}
+    
+        ul{list-style: none; }
+
+        .form-control{padding:6px; border:1px solid #ddd; border-radius: 3px;}
+
+        .attr{
+            position: relative;
+        }
+        .attr:hover .filter-panel{
+            display: block;
+        }
+        .filter-panel{position:absolute; top: 65px; left: 0; display: none; padding:10px; width:220px; background-color:#fff; box-shadow:0 0 5px rgba(0,0,0,.37); border-radius: 2px;}
+        .filter-list label{display: block;}
+        .filter-list label:hover{background-color:#d4ecff;}
+        .set-wrap{padding-top:5px;}
+        .set-wrap .btn-confirm{padding:5px 15px;}
+    </style>
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+    
+    <table id="table">
+        <thead>
+            <tr>
+                <th class="attr name">
+                    姓<i class="fa fa-filter fa-fw"></i>
+                    <div class="filter-panel">
+                        <div class="input-bar">
+                            <input type="text" class="form-control">
+                        </div>
+                        <ul class="filter-list" style="overflow:auto; max-height: 260px; min-height:160px;">
+                        </ul>
+                        <div class="set-wrap">
+                            <button class="btn-confirm">确定</button>
+                        </div>
+                    </div>
+                </th>
+                <th class="attr sex">
+                    性别<i class="fa fa-filter fa-fw"></i>
+                    <div class="filter-panel">
+                        <div class="input-bar">
+                            <input type="text" class="form-control">
+                        </div>
+                        <ul class="filter-list" style="overflow:auto; max-height: 260px; min-height:160px;">
+                        </ul>
+                        <div class="set-wrap">
+                            <button class="btn-confirm">确定</button>
+                        </div>
+                    </div>
+                </th>
+                <th class="attr age">
+                    年龄<i class="fa fa-filter fa-fw"></i>
+                    <div class="filter-panel">
+                        <div class="input-bar">
+                            <input type="text" class="form-control">
+                        </div>
+                        <ul class="filter-list" style="overflow:auto; max-height: 260px; min-height:160px;">
+                        </ul>
+                        <div class="set-wrap">
+                            <button class="btn-confirm">确定</button>
+                        </div>
+                    </div>
+                </th>
+                <th class="attr position">
+                    职业<i class="fa fa-filter fa-fw"></i>
+                    <div class="filter-panel">
+                        <div class="input-bar">
+                            <input type="text" class="form-control">
+                        </div>
+                        <ul class="filter-list" style="overflow:auto; max-height: 260px; min-height:160px;">
+                        </ul>
+                        <div class="set-wrap">
+                            <button class="btn-confirm">确定</button>
+                        </div>
+                    </div>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="tr">
+                <td data-type="name">赵</td>
+                <td data-type="sex">男</td>
+                <td data-type="age">23</td>
+                <td data-type="position">程序员</td>
+            </tr>
+            <tr class="tr">
+                <td data-type="name">赵</td>
+                <td data-type="sex">女</td>
+                <td data-type="age">26</td>
+                <td data-type="position">医生</td>
+            </tr>
+            <tr class="tr">
+                <td data-type="name">李</td>
+                <td data-type="sex">男</td>
+                <td data-type="age">23</td>
+                <td data-type="position">医生</td>
+            </tr>
+            <tr class="tr">
+                <td data-type="name">钱</td>
+                <td data-type="sex">男</td>
+                <td data-type="age">25</td>
+                <td data-type="position">律师</td>
+            </tr>
+            <tr class="tr">
+                <td data-type="name">赵</td>
+                <td data-type="sex">女</td>
+                <td data-type="age">23</td>
+                <td data-type="position">程序员</td>
+            </tr>
+        </tbody>
+    </table>
+    
+
+
+    <script src="http://7.luochongfei.top/jquery.js"></script>
+    <script>
+        // 发布者
+        function Publisher() {
+            this.subscribers = [];
+        }
+        // 分发
+        Publisher.prototype.deliver = function(data) {
+            this.subscribers.forEach(function(fn) {
+                fn.fire(data);
+            });
+            return this;
+        }
+
+        // 订阅者
+        function Observe(callback) {
+            this.fire = callback;
+        }
+
+        // 给予订阅者订阅的能力
+        Observe.prototype.subscribe = function(publisher) {
+
+            var that = this;
+            // some如果有一个返回值为true则为true
+            var alreadyExists = publisher.subscribers.some(function(el){
+
+                // 这里的el指的是函数对象
+                return el.fire === that.fire;
+            });
+
+            // 如果存在这个函数对象则不进行添加
+            if (!alreadyExists) {
+                publisher.subscribers.push(this);
+            }
+
+            //订阅列表
+            console.log(publisher.subscribers);
+            return this;
+        };
+
+        // 给予订阅者退订的能力
+        Observe.prototype.unsubscribe = function(publisher) {
+
+            var that = this;
+
+            // 过滤，将返回值为true的重组成数组
+            publisher.subscribers = publisher.subscribers.filter(function(el) {
+
+                // 这里的el.fire指的是观察者传入的callback
+                // that.fire就是当前对象对callback的引用
+                return !(el.fire === that.fire);
+            })
+            //订阅列表
+            console.log(publisher.subscribers)
+            return this;
+        };
+
+        $(function(){
+            // 属性面板初始化
+            var $tr = $(".tr");
+            var $table = $("#table");
+            // 数组去重
+            var remDub = function(arr){
+                var json = {};
+                for(var i = 0; i < arr.length; i++){
+                    json[arr[i]] || (json[arr[i]] = arr[i]);
+                }
+                var tempArr = [];
+                for(var name in json){
+                    tempArr.push(json[name])
+                }
+                return tempArr;
+            }
+            var appendAttr = function(type){
+                var arr = [], str ='';
+                $tr.find("[data-type='" + type + "']").each(function(i){
+                    arr.push($(this).text().trim());
+                })
+                var tempArr = remDub(arr);
+
+                tempArr.forEach(function(item){
+                    str +=  '<li data-val="' + item + '">' +
+                               '<label>' +
+                                   '<input class="checkItem" type="checkbox" value="' + item + '" data-type="'+ type +'" checked />' +
+                                   '<span>' + item + '</span>' +
+                               '</label>' +
+                            '</li>';
+                })
+                $table.find('.' + type).find('.filter-list').empty().append(str)
+            }
+            appendAttr('name');
+            appendAttr('sex');
+            appendAttr('age');
+            appendAttr('position');
+
+            var showPanelAttr = function(rowObj){
+                console.log(rowObj)
+                for(i in rowObj){
+                    rowObj[i] = remDub(rowObj[i]);
+                    var $lis = $table.find('.' + i).find('.filter-list').find('li');
+                    $lis.each(function(){
+                        if(rowObj[i].indexOf(String($(this).data('val'))) > -1){
+                            $(this).show();
+                        }else{
+                            $(this).hide();
+                        }
+                    });
+                }
+            }
+
+            var operateAttr = function(o) {
+                var rowObj = {};
+                $tr.each(function(i){
+                    var flag = false;
+                    if($(this).find('[data-type="' + o.type + '"]').text().trim() === o.value) {
+                        flag = true;
+                    }
+                    if(flag){
+                        o.checked ? ($(this).show()) : ($(this).hide());
+                    }
+                    if($(this).css('display') !== 'none'){
+                        $(this).find('td').each(function(){
+                            var dType = $(this).data('type');
+                            if(dType !== o.type){
+                                if(!$.isArray(rowObj[dType])) {
+                                    rowObj[dType] = new Array();
+                                }
+                                rowObj[dType].push($(this).text().trim());
+                            }
+                        });
+                    }
+                });
+                showPanelAttr(rowObj);
+            }
+
+            var publisher = new Publisher();
+            var observe = new Observe(operateAttr);
+            observe.subscribe(publisher);
+
+            //checkbox绑定事件
+            $(document).on('change', '.checkItem', function(){
+                publisher.deliver({
+                    type: $(this).data('type'),
+                    value: $(this).val(),
+                    checked: $(this).prop('checked')
+                });
+            });
+
+
+        });
+
+    </script>
+</body>
+</html>
